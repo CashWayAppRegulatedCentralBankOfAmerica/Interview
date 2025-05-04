@@ -4,87 +4,128 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Nairobi City County - Online Interview & Test Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Arial', sans-serif;
-      background: #f1f1f1;
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f8;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      padding: 20px;
       color: #333;
     }
+
     .home-container {
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 600px;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
       width: 100%;
     }
-    h1 {
-      font-size: 36px;
-      color: #0078D4;
-      margin-bottom: 20px;
-      font-weight: bold;
-      text-align: left;
-      margin-top: 0;
-    }
-    h2 {
-      font-size: 24px;
-      color: #555;
-      margin-bottom: 30px;
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      color: #666;
-      margin-bottom: 30px;
-    }
-    button {
-      padding: 12px 30px;
-      font-size: 18px;
-      background-color: #0078D4;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-    button:hover {
-      background-color: #005fa3;
-    }
-    footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #888;
-    }
+
     .header-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0078D4;
       position: absolute;
       top: 20px;
       left: 20px;
-      font-size: 24px;
-      font-weight: bold;
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1 {
+      font-size: 32px;
       color: #0078D4;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
-    .footer-links {
-      margin-top: 15px;
+
+    h2 {
+      font-size: 22px;
+      color: #444;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .start-button {
+      display: inline-block;
+      background-color: #0078D4;
+      color: #fff;
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: #005fa3;
+    }
+
+    footer {
+      margin-top: 30px;
       text-align: center;
-    }
-    .footer-links a {
       font-size: 14px;
       color: #888;
-      text-decoration: none;
-      margin-right: 15px;
     }
+
+    .footer-links a {
+      color: #888;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+
     .footer-links a:hover {
       color: #0078D4;
     }
+
     .footer-links .disabled {
       color: #ccc;
       cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .home-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .header-logo {
+        font-size: 18px;
+        left: 15px;
+        top: 15px;
+      }
     }
   </style>
 </head>
@@ -97,24 +138,23 @@
     <h1>Welcome to Nairobi City County</h1>
     <h2>Online Interview & Test Arena</h2>
     <p>
-      This platform offers an innovative and secure online testing environment for candidates applying to various job positions within Nairobi City County.  
+      This platform offers an innovative and secure online testing environment for candidates applying to various job positions within Nairobi City County.
       By participating in this online interview and test, you will demonstrate your skills, knowledge, and abilities to contribute to the success of our growing city.
     </p>
     <p>
-      Whether you're a local resident or applying from elsewhere, our online platform ensures fairness, transparency, and integrity throughout the testing process. 
+      Whether you're a local resident or applying from elsewhere, our online platform ensures fairness, transparency, and integrity throughout the testing process.
       As part of our commitment to quality and innovation, this platform guarantees a smooth, secure, and efficient experience for all users.
     </p>
     <p>
       Before you proceed to the test, please log in using your credentials. Only authorized candidates will be allowed to enter the test area.
     </p>
-    <button onclick="window.location.href = 'login.html'">Enter Interview & Test</button>
+    <a href="login.html" class="start-button">Enter Interview & Test</a>
   </div>
 
-  <!-- Footer with Contact Us and Terms (disabled link) -->
   <footer class="footer-links">
-    <a href="mailto:1234">Contact Us</a>
+    <a href="mailto:info@thecountygovernmentofnairobi.co.ke">Contact Us</a>
     <span class="disabled">Terms & Conditions</span>
   </footer>
 
 </body>
-  </htm
+</html>
