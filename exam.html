@@ -58,6 +58,7 @@
       color: white;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
     }
     video {
       width: 200px;
@@ -92,15 +93,12 @@
 <div id="examContainer">
   <div id="timer">Loading Timer...</div>
   <input type="text" id="name" placeholder="Enter your full name" required>
-
   <div id="question">
     <strong>Essay Question:</strong>  
     <p>Discuss the role of county governments in delivering essential services to local communities.</p>
   </div>
-
   <textarea id="answer" placeholder="Type your full response here..." required></textarea>
   <button onclick="submitAnswer()">Submit Exam</button>
-
   <video id="video" autoplay muted></video>
 </div>
 
@@ -113,11 +111,11 @@
 </div>
 
 <script>
-  const formURL = "YOUR_WEB_APP_URL_HERE"; // Replace with actual endpoint
+  const formURL = "YOUR_WEB_APP_URL_HERE"; // Replace with actual submission endpoint
   const modal = document.getElementById("modal");
   const modalMsg = document.getElementById("modalMessage");
   const examContainer = document.getElementById("examContainer");
-  const button = document.querySelector("button");
+  const submitBtn = document.querySelector("button");
 
   let userToken = localStorage.getItem("userToken");
   if (!userToken) {
@@ -125,20 +123,10 @@
     localStorage.setItem("userToken", userToken);
   }
 
-  let refreshCount = parseInt(localStorage.getItem("refreshCount") || "0");
-  if (performance.navigation.type === 1) { // Page reload
-    refreshCount++;
-    localStorage.setItem("refreshCount", refreshCount);
-  }
-
-  const isBanned = localStorage.getItem("banned") === "true";
-
-  if (isBanned && refreshCount < 5) {
+  const hasSubmitted = localStorage.getItem("submitted") === "true";
+  if (hasSubmitted) {
     examContainer.style.display = "none";
-    showModal("Access Denied due to violation. Refresh the page 5 times to regain access.");
-  } else if (isBanned && refreshCount >= 5) {
-    localStorage.setItem("banned", "false");
-    localStorage.setItem("refreshCount", "0");
+    showModal("You do not have access. You have already submitted the exam.");
   }
 
   function showModal(message) {
@@ -148,17 +136,13 @@
 
   function closeModal() {
     modal.style.display = "none";
-  }
-
-  function banUser(reason) {
-    localStorage.setItem("banned", "true");
-    localStorage.setItem("refreshCount", "0");
-    examContainer.style.display = "none";
-    showModal(reason);
+    if (localStorage.getItem("submitted") === "true") {
+      examContainer.style.display = "none";
+      showModal("You do not have access. You have already submitted the exam.");
+    }
   }
 
   function initExamSecurity() {
-    // Webcam
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         document.getElementById("video").srcObject = stream;
@@ -167,15 +151,13 @@
         banUser("Camera access is required to proceed with the exam.");
       });
 
-    // Tab switch detection
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         banUser("You switched tabs. Exam session terminated.");
       }
     });
 
-    // Timer
-    let timeLeft = 60 * 60; // 1 hour
+    let timeLeft = 60 * 60;
     const timerDisplay = document.getElementById("timer");
 
     const timerInterval = setInterval(() => {
@@ -184,11 +166,16 @@
       timerDisplay.textContent = `Time Left: ${minutes}:${seconds.toString().padStart(2, '0')}`;
       if (timeLeft <= 0) {
         clearInterval(timerInterval);
-        banUser("Time is up. Your exam is being submitted.");
-        submitAnswer();
+        autoSubmit();
       }
       timeLeft--;
     }, 1000);
+  }
+
+  function banUser(reason) {
+    localStorage.setItem("submitted", "true");
+    examContainer.style.display = "none";
+    showModal(reason);
   }
 
   function submitAnswer() {
@@ -200,18 +187,36 @@
       return;
     }
 
-    button.disabled = true;
+    submitBtn.disabled = true;
 
     fetch(formURL, {
       method: "POST",
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `token=${encodeURIComponent(userToken)}&name=${encodeURIComponent(name)}&answer=${encodeURIComponent(answer)}`
     }).then(() => {
+      localStorage.setItem("submitted", "true");
       showModal("Your answer has been submitted successfully.");
-      setTimeout(() => location.reload(), 3000);
     }).catch(() => {
       showModal("Submission failed. Please check your internet connection.");
-      button.disabled = false;
+      submitBtn.disabled = false;
+    });
+  }
+
+  function autoSubmit() {
+    const name = document.getElementById("name").value.trim();
+    const answer = document.getElementById("answer").value.trim();
+
+    if (!name || !answer || localStorage.getItem("submitted") === "true") {
+      return;
+    }
+
+    fetch(formURL, {
+      method: "POST",
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `token=${encodeURIComponent(userToken)}&name=${encodeURIComponent(name)}&answer=${encodeURIComponent(answer)}`
+    }).finally(() => {
+      localStorage.setItem("submitted", "true");
+      showModal("Time is up. Your exam has been submitted automatically.");
     });
   }
 
