@@ -38,23 +38,72 @@
       color: #333;
       margin-bottom: 30px;
     }
-    .button-group {
+    .btn-group {
       display: flex;
       gap: 10px;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
     }
     button {
-      padding: 12px 20px;
+      padding: 12px 25px;
       font-size: 16px;
       background-color: #0078D4;
       color: #fff;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      flex: 1;
+      flex: 1 1 45%;
     }
     button:hover {
       background-color: #005fa3;
     }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .modal input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #0078D4;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     @media screen and (max-width: 480px) {
       .container {
         padding: 20px;
@@ -65,7 +114,7 @@
       .welcome {
         font-size: 16px;
       }
-      .button-group {
+      .btn-group {
         flex-direction: column;
       }
     }
@@ -77,10 +126,47 @@
     <div class="welcome">
       Welcome to the official online job interview and testing platform.
     </div>
-    <div class="button-group">
-      <button onclick="window.location.href='instructions.html'">Proceed to Instructions</button>
-      <button onclick="window.location.href='code.html'">Proceed to Results</button>
+    <div class="btn-group">
+      <button onclick="window.location.href='results.html'">Proceed to Instructions</button>
+      <button onclick="openModal()">Process to Results</button>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div id="examModal" class="modal">
+    <div class="modal-content">
+      <h3>Enter Exam Code</h3>
+      <input type="text" id="examCode" placeholder="e.g., 05047" />
+      <button onclick="submitCode()">Submit</button>
+      <div class="spinner" id="spinner"></div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('examModal').style.display = 'flex';
+    }
+
+    function submitCode() {
+      const code = document.getElementById('examCode').value;
+      const spinner = document.getElementById('spinner');
+      if (code === '05047') {
+        spinner.style.display = 'block';
+        setTimeout(() => {
+          window.location.href = 'results.html';
+        }, 1000);
+      } else {
+        alert('Invalid Exam Code.');
+      }
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('examModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
