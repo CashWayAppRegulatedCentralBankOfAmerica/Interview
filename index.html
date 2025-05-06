@@ -1,172 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nairobi City County - Welcome</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f4f8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .container {
-      background: #fff;
-      padding: 30px 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: #0078D4;
-      margin-bottom: 20px;
-    }
-    .welcome {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 30px;
-    }
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    button {
-      padding: 12px 25px;
-      font-size: 16px;
-      background-color: #0078D4;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      flex: 1 1 45%;
-    }
-    button:hover {
-      background-color: #005fa3;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nairobi City County - Welcome</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0078D4;
+      margin-bottom: 20px;
+    }
+    .welcome {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      flex: 1;
+      padding: 12px 15px;
+      font-size: 16px;
+      background-color: #0078D4;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
 
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-    .modal input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .spinner {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #0078D4;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-      display: none;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      position: relative;
+    }
+    .modal-content input {
+      padding: 10px;
+      width: 100%;
+      margin: 15px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal-content input.invalid {
+      border: 1px solid red;
+    }
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #0078D4;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-    @media screen and (max-width: 480px) {
-      .container {
-        padding: 20px;
-      }
-      .logo {
-        font-size: 20px;
-      }
-      .welcome {
-        font-size: 16px;
-      }
-      .btn-group {
-        flex-direction: column;
-      }
-    }
-  </style>
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      .logo {
+        font-size: 20px;
+      }
+      .welcome {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">NAIROBI CITY COUNTY</div>
-    <div class="welcome">
-      Welcome to the official online job interview and testing platform.
-    </div>
-    <div class="btn-group">
-      <button onclick="window.location.href='results.html'">Proceed to Instructions</button>
-      <button onclick="openModal()">Process to Results</button>
-    </div>
-  </div>
 
-  <!-- Modal -->
-  <div id="examModal" class="modal">
-    <div class="modal-content">
-      <h3>Enter Exam Code</h3>
-      <input type="text" id="examCode" placeholder="e.g., 05047" />
-      <button onclick="submitCode()">Submit</button>
-      <div class="spinner" id="spinner"></div>
-    </div>
-  </div>
+  <div class="container">
+    <div class="logo">NAIROBI CITY COUNTY</div>
+    <div class="welcome">
+      Welcome to the official online job interview and testing platform.
+    </div>
+    <div class="button-group">
+      <button onclick="window.location.href='results.html'">Proceed to Instructions</button>
+      <button onclick="openModal()">Process to Results</button>
+    </div>
+  </div>
 
-  <script>
-    function openModal() {
-      document.getElementById('examModal').style.display = 'flex';
-    }
+  <!-- Modal -->
+  <div class="modal" id="examModal">
+    <div class="modal-content">
+      <h3>Enter Exam Code</h3>
+      <input type="text" id="examCode" placeholder="Enter code...">
+      <div class="spinner" id="spinner"></div>
+      <button onclick="submitCode()">Submit</button>
+    </div>
+  </div>
 
-    function submitCode() {
-      const code = document.getElementById('examCode').value;
-      const spinner = document.getElementById('spinner');
-      if (code === '05047') {
-        spinner.style.display = 'block';
-        setTimeout(() => {
-          window.location.href = 'results.html';
-        }, 1000);
-      } else {
-        alert('Invalid Exam Code.');
-      }
-    }
+  <script>
+    const modal = document.getElementById('examModal');
+    const codeInput = document.getElementById('examCode');
+    const spinner = document.getElementById('spinner');
 
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-      const modal = document.getElementById('examModal');
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
+    function openModal() {
+      modal.style.display = 'flex';
+      codeInput.focus();
+    }
+
+    function submitCode() {
+      const code = codeInput.value.trim();
+      codeInput.classList.remove('invalid');
+
+      if (code === '05047') {
+        spinner.style.display = 'block';
+        setTimeout(() => {
+          window.location.href = 'results.html';
+        }, 1000);
+      } else {
+        codeInput.classList.add('invalid');
+        alert('Incorrect exam code.');
+      }
+    }
+
+    codeInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        submitCode();
+      }
+    });
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+      codeInput.value = '';
+      codeInput.classList.remove('invalid');
+      spinner.style.display = 'none';
+    }
+  </script>
+
 </body>
-</html>
+  </html>
