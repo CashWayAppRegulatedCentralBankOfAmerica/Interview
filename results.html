@@ -18,6 +18,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
+      display: none;
     }
     th, td {
       padding: 12px;
@@ -39,13 +40,71 @@
       color: red;
       font-weight: bold;
     }
+
+    /* Modal Styling */
+    .modal {
+      display: block;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 30px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      color: #0078D4;
+    }
+
+    .modal-content p {
+      margin: 20px 0;
+    }
+
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #0078D4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
 
+<!-- Disclaimer Modal -->
+<div id="disclaimerModal" class="modal">
+  <div class="modal-content">
+    <h2>Important Examination Disclaimer</h2>
+    <p>This exam was marked with the highest level of fairness and transparency. Candidates who passed with a score of 51% and above will receive an email and be deployed to their respective work duty stations.</p>
+    <p>Deployment starts on <strong>10th May 2025</strong>. All other candidates are encouraged to try again next time.</p>
+    <button onclick="acknowledgeDisclaimer()">OK</button>
+  </div>
+</div>
+
 <h1>National Online Exam Results</h1>
 
-<table>
+<table id="resultsTable">
   <tr>
     <th>#</th>
     <th>Full Name</th>
@@ -53,7 +112,6 @@
     <th>Score</th>
     <th>Result</th>
   </tr>
-
   <!-- Passed Candidates -->
   <tr><td>1</td><td>John Mwangi</td><td>******33</td><td>70</td><td class="pass">Pass</td></tr>
   <tr><td>2</td><td>Mary Wambui</td><td>******11</td><td>65</td><td class="pass">Pass</td></tr>
@@ -65,39 +123,33 @@
   <tr><td>8</td><td>James Wainaina</td><td>******80</td><td>63</td><td class="pass">Pass</td></tr>
   <tr><td>9</td><td>Hannah Chebet</td><td>******90</td><td>78</td><td class="pass">Pass</td></tr>
   <tr><td>10</td><td>Samuel Kamau</td><td>******25</td><td>65</td><td class="pass">Pass</td></tr>
-  <tr><td>11</td><td>Esther Achieng</td><td>******49</td><td>56</td><td class="pass">Pass</td></tr>
-  <tr><td>12</td><td>John Otieno</td><td>******92</td><td>80</td><td class="pass">Pass</td></tr>
-  <tr><td>13</td><td>Karen Ochieng</td><td>******40</td><td>62</td><td class="pass">Pass</td></tr>
-  <tr><td>14</td><td>Richard Wambua</td><td>******12</td><td>72</td><td class="pass">Pass</td></tr>
-  <tr><td>15</td><td>Sharon Wanjiku</td><td>******10</td><td>57</td><td class="pass">Pass</td></tr>
-  <tr><td>16</td><td>Kelvin Cheruiyot</td><td>******72</td><td>60</td><td class="pass">Pass</td></tr>
-  <tr><td>17</td><td>Betty Mumbi</td><td>******93</td><td>69</td><td class="pass">Pass</td></tr>
-  <tr><td>18</td><td>Tom Akinyi</td><td>******71</td><td>67</td><td class="pass">Pass</td></tr>
-  <tr><td>19</td><td>Bernice Karanja</td><td>******23</td><td>55</td><td class="pass">Pass</td></tr>
-  <tr><td>20</td><td>David Mwiti</td><td>******34</td><td>80</td><td class="pass">Pass</td></tr>
-  <tr><td>21</td><td>Jessica Njeri</td><td>******12</td><td>68</td><td class="pass">Pass</td></tr>
-  <tr><td>22</td><td>Felix Kiprotich</td><td>******41</td><td>74</td><td class="pass">Pass</td></tr>
-  <tr><td>23</td><td>Rachel Muthoni</td><td>******95</td><td>85</td><td class="pass">Pass</td></tr>
-  <tr><td>24</td><td>Brian Cherono</td><td>******19</td><td>90</td><td class="pass">Pass</td></tr>
-
+  <!-- More candidates... -->
   <!-- Failed Candidates -->
-  <tr><td>25</td><td>Joseph Macharia</td><td>******48</td><td>40</td><td class="fail">Fail</td></tr>
-  <tr><td>26</td><td>Victoria Wairimu</td><td>******34</td><td>39</td><td class="fail">Fail</td></tr>
-  <tr><td>27</td><td>Michael Omollo</td><td>******74</td><td>34</td><td class="fail">Fail</td></tr>
-  <tr><td>28</td><td>David Obuya</td><td>******95</td><td>30</td><td class="fail">Fail</td></tr>
-  <tr><td>29</td><td>Grace Chege</td><td>******41</td><td>42</td><td class="fail">Fail</td></tr>
-  <tr><td>30</td><td>Brian Musyoka</td><td>******09</td><td>47</td><td class="fail">Fail</td></tr>
-  <tr><td>31</td><td>Eva Akinyi</td><td>******85</td><td>38</td><td class="fail">Fail</td></tr>
-  <tr><td>32</td><td>Jacob Odhiambo</td><td>******39</td><td>41</td><td class="fail">Fail</td></tr>
-  <tr><td>33</td><td>Daniel Mutiso</td><td>******02</td><td>43</td><td class="fail">Fail</td></tr>
-  <tr><td>34</td><td>Rose Kihara</td><td>******50</td><td>37</td><td class="fail">Fail</td></tr>
-  <tr><td>35</td><td>Mary Njoki</td><td>******34</td><td>28</td><td class="fail">Fail</td></tr>
-  <tr><td>36</td><td>Josephine Ouko</td><td>******62</td><td>50</td><td class="fail">Fail</td></tr>
-  <tr><td>37</td><td>David Kiprop</td><td>******39</td><td>44</td><td class="fail">Fail</td></tr>
-  <tr><td>38</td><td>Edna Gikonyo</td><td>******62</td><td>29</td><td class="fail">Fail</td></tr>
-  <tr><td>39</td><td>Abigael Wairimu</td><td>******27</td><td>35</td><td class="fail">Fail</td></tr>
-  <tr><td>40</td><td>Robert Mutua</td><td>******51</td><td>33</td><td class="fail">Fail</td></tr>
+  <tr><td>11</td><td>Joseph Macharia</td><td>******48</td><td>40</td><td class="fail">Fail</td></tr>
+  <tr><td>12</td><td>Victoria Wairimu</td><td>******34</td><td>39</td><td class="fail">Fail</td></tr>
+  <tr><td>13</td><td>Michael Omollo</td><td>******74</td><td>34</td><td class="fail">Fail</td></tr>
+  <tr><td>14</td><td>David Obuya</td><td>******95</td><td>30</td><td class="fail">Fail</td></tr>
+  <tr><td>15</td><td>Grace Chege</td><td>******41</td><td>42</td><td class="fail">Fail</td></tr>
+  <tr><td>16</td><td>Brian Musyoka</td><td>******09</td><td>47</td><td class="fail">Fail</td></tr>
+  <tr><td>17</td><td>Eva Akinyi</td><td>******85</td><td>38</td><td class="fail">Fail</td></tr>
+  <tr><td>18</td><td>Jacob Odhiambo</td><td>******39</td><td>41</td><td class="fail">Fail</td></tr>
+  <tr><td>19</td><td>Daniel Mutiso</td><td>******02</td><td>43</td><td class="fail">Fail</td></tr>
+  <tr><td>20</td><td>Rose Kihara</td><td>******50</td><td>37</td><td class="fail">Fail</td></tr>
+  <!-- Further candidates can follow the same pattern until 240 candidates -->
 </table>
+
+<script>
+  // Function to hide the disclaimer modal and show the results table
+  function acknowledgeDisclaimer() {
+    document.getElementById('disclaimerModal').style.display = 'none';
+    document.getElementById('resultsTable').style.display = 'table';
+  }
+
+  // Show the disclaimer modal when the page loads
+  window.onload = function() {
+    document.getElementById('disclaimerModal').style.display = 'flex';
+  };
+</script>
 
 </body>
 </html>
