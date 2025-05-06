@@ -18,6 +18,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
+      display: none;
     }
     th, td {
       padding: 12px;
@@ -39,19 +40,75 @@
       color: red;
       font-weight: bold;
     }
+
+    /* Modal Styling */
+    .modal {
+      display: block;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 30px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      color: #0078D4;
+    }
+
+    .modal-content p {
+      margin: 20px 0;
+    }
+
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #0078D4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
-  <h1>National Online Exam Results</h1>
-  <table>
-    <tr>
-      <th>#</th>
-      <th>Full Name</th>
-      <th>ID Number</th>
-      <th>Score</th>
-      <th>Result</th>
-    </tr>
-    <!-- List of candidates -->
+
+<div id="disclaimerModal" class="modal">
+  <div class="modal-content">
+    <h2>Important Examination Disclaimer</h2>
+    <p>This exam was marked with the highest level of fairness and transparency. Candidates who passed with a score of 51% and above will receive an email and be deployed to their respective work duty stations.</p>
+    <p>Deployment starts on <strong>10th May 2025</strong>. All other candidates are encouraged to try again next time.</p>
+    <button onclick="acknowledgeDisclaimer()">OK</button>
+  </div>
+</div>
+
+<h1>National Online Exam Results</h1>
+
+<table id="resultsTable">
+  <tr>
+    <th>#</th>
+    <th>Full Name</th>
+    <th>ID Number</th>
+    <th>Score</th>
+    <th>Result</th>
+  </tr>
+  <!-- List of candidates -->
     <!-- Passed Candidates (24) -->
     <tr><td>1</td><td>John Mwangi</td><td>28457633</td><td>70</td><td class="pass">Pass</td></tr>
     <tr><td>2</td><td>Mary Wambui</td><td>29563711</td><td>65</td><td class="pass">Pass</td></tr>
@@ -96,6 +153,14 @@
     <tr><td>39</td><td>Abigael Wairimu</td><td>72681927</td><td>35</td><td class="fail">Fail</td></tr>
     <tr><td>40</td><td>Robert Mutua</td><td>73848251</td><td>33</td><td class="fail">Fail</td></tr>
     <!-- Further candidates (continue with the rest until 240 candidates) -->
-  </table>
+</table>
+
+<script>
+  function acknowledgeDisclaimer() {
+    document.getElementById('disclaimerModal').style.display = 'none';
+    document.getElementById('resultsTable').style.display = 'table';
+  }
+</script>
+
 </body>
 </html>
