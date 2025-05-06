@@ -14,9 +14,6 @@
       text-align: center;
       color: #0078D4;
     }
-    .table-container {
-      overflow-x: auto;
-    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -46,20 +43,22 @@
 
     /* Modal Styling */
     .modal {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: block;
       position: fixed;
       z-index: 1000;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
+      overflow: auto;
       background-color: rgba(0, 0, 0, 0.6);
     }
-
     .modal-content {
       background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       padding: 30px;
       border: 1px solid #888;
       width: 80%;
@@ -67,15 +66,12 @@
       border-radius: 10px;
       text-align: center;
     }
-
     .modal-content h2 {
       color: #0078D4;
     }
-
     .modal-content p {
       margin: 20px 0;
     }
-
     .modal-content button {
       padding: 10px 20px;
       background-color: #0078D4;
@@ -84,7 +80,6 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
     .modal-content button:hover {
       background-color: #005fa3;
     }
@@ -92,10 +87,10 @@
 </head>
 <body>
 
-<div id="disclaimerModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+<div id="disclaimerModal" class="modal">
   <div class="modal-content">
-    <h2 id="modalTitle">Important Examination Disclaimer</h2>
-    <p id="modalDesc">This exam was marked with the highest level of fairness and transparency. Candidates who passed with a score of 51% and above will receive an email and be deployed to their respective work duty stations.</p>
+    <h2>Important Examination Disclaimer</h2>
+    <p>This exam was marked with the highest level of fairness and transparency. Candidates who passed with a score of 51% and above will receive an email and be deployed to their respective work duty stations.</p>
     <p>Deployment starts on <strong>10th May 2025</strong>. All other candidates are encouraged to try again next time.</p>
     <button onclick="acknowledgeDisclaimer()">OK</button>
   </div>
@@ -103,16 +98,17 @@
 
 <h1>National Online Exam Results</h1>
 
-<div class="table-container">
-  <table id="resultsTable">
-    <tr>
-      <th>#</th>
-      <th>Full Name</th>
-      <th>ID Number</th>
-      <th>Score</th>
-      <th>Result</th>
-    </tr>
-    <!-- Passed Candidates (24) -->
+<table id="resultsTable">
+  <tr>
+    <th>#</th>
+    <th>Full Name</th>
+    <th>ID Number</th>
+    <th>Score</th>
+    <th>Result</th>
+  </tr>
+  <!-- Candidates go here -->
+  <!-- For brevity, only a few are shown, add more as needed -->
+  <!-- Passed Candidates (24) -->
     <tr><td>1</td><td>John Mwangi</td><td>28***33</td><td>70</td><td class="pass">Pass</td></tr>
     <tr><td>2</td><td>Mary Wambui</td><td>29***11</td><td>65</td><td class="pass">Pass</td></tr>
     <tr><td>3</td><td>James Kamau</td><td>30***22</td><td>71</td><td class="pass">Pass</td></tr>
@@ -156,8 +152,7 @@
     <tr><td>39</td><td>Abigael Wairimu</td><td>72***27</td><td>35</td><td class="fail">Fail</td></tr>
     <tr><td>40</td><td>Robert Mutua</td><td>73***51</td><td>33</td><td class="fail">Fail</td></tr>
     <!-- Further candidates (continue with the rest until 240 candidates) -->
-  </table>
-</div>
+</table>
 
 <script>
   function acknowledgeDisclaimer() {
@@ -165,16 +160,16 @@
     document.getElementById('resultsTable').style.display = 'table';
   }
 
-  window.onload = function () {
-    const tdList = document.querySelectorAll("#resultsTable td:nth-child(3)");
-    tdList.forEach(td => {
-      const id = td.textContent.trim();
-      if (id.length >= 4) {
-        td.textContent = id.slice(0, 2) + '***' + id.slice(-2);
+  document.addEventListener('DOMContentLoaded', () => {
+    const cells = document.querySelectorAll('#resultsTable tr td:nth-child(3)');
+    cells.forEach(cell => {
+      const id = cell.textContent.trim();
+      if (id.length >= 8) {
+        cell.textContent = '******' + id.slice(-2);
       }
     });
-  };
+  });
 </script>
 
 </body>
-</html>
+                                                                                            </html>
